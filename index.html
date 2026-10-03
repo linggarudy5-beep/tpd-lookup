@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPD Lookup</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6fb;color:#17243b}
+.container{width:min(1100px,94%);margin:auto;padding:24px 0 40px}
+.hero{background:linear-gradient(135deg,#31588f,#5c82c9);color:white;border-radius:0 0 38px 38px;padding:34px 28px 40px;box-shadow:0 14px 35px rgba(30,55,95,.18)}
+.brand{display:flex;align-items:center;gap:16px}.logo{width:66px;height:66px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);border-radius:18px;display:grid;place-items:center;font-size:21px;font-weight:800}.brand h1{margin:0;font-size:32px}.brand p{margin:5px 0 0;font-size:17px;opacity:.9}
+.search{margin-top:30px;background:white;padding:10px;border-radius:25px;display:flex;gap:10px}.search input{flex:1;border:0;outline:0;font-size:20px;padding:15px 18px;border-radius:18px;min-width:0}.search button{border:0;background:#31588f;color:#fff;font-size:18px;font-weight:800;padding:0 27px;border-radius:18px;cursor:pointer}.search button:disabled{opacity:.65}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:34px 0 14px}.section-title h2{margin:0;font-size:22px}.reset{border:0;background:none;color:#31588f;font-weight:800;cursor:pointer;font-size:15px}
+.card{background:white;border:1px solid #e0e6ef;border-radius:24px;padding:24px;box-shadow:0 8px 25px rgba(35,58,91,.07)}
+.status{text-align:center;color:#68758a;padding:28px}.error{color:#b9472e}.success-grid{display:grid;gap:14px}.field{background:#f7f9fc;border-radius:17px;padding:17px}.label{font-size:13px;color:#68758a;font-weight:700;margin-bottom:7px}.value{font-size:18px;font-weight:700;word-break:break-word}
+.history{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid #d7dfeb;background:#fff;padding:9px 13px;border-radius:999px;cursor:pointer;color:#31588f}
+.sheet-wrap{overflow:hidden;padding:0}.sheet-head{padding:20px 22px;font-weight:800;border-bottom:1px solid #e0e6ef}.sheet-frame{width:100%;height:650px;border:0;display:block}
+@media(max-width:600px){.container{width:100%;padding-top:0}.hero{border-radius:0 0 28px 28px;padding:25px 18px 28px}.brand h1{font-size:27px}.brand p{font-size:15px}.logo{width:56px;height:56px}.search{border-radius:20px}.search input{font-size:17px}.search button{padding:0 19px;font-size:16px}.card{padding:18px;border-radius:20px}.sheet-frame{height:560px}}
+</style>
+</head>
+<body>
+<div class="container">
+<section class="hero">
+<div class="brand"><div class="logo">TPD</div><div><h1>TPD Lookup</h1><p>Pencarian data TPD secara cepat</p></div></div>
+<form class="search" id="searchForm"><input id="tpdInput" placeholder="Masukkan TPD_id..." autocomplete="off"><button id="searchBtn" type="submit">CARI</button></form>
+</section>
+
+<div class="section-title"><h2>Hasil pencarian</h2><button class="reset" id="resetBtn">RESET</button></div>
+<div class="card" id="result"><div class="status">Masukkan TPD_id lalu tekan CARI.</div></div>
+
+<div class="section-title"><h2>Riwayat</h2></div>
+<div class="card"><div class="history" id="history"></div></div>
+
+<div class="section-title"><h2>Data Spreadsheet</h2></div>
+<div class="card sheet-wrap"><div class="sheet-head">Google Sheets — sumber data</div><iframe class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1Gjw-xdFsTkp4-lw1NIxwRKcnjJ7YX4oYyFWih9njUMU/edit?gid=0#gid=0"></iframe></div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqV50eW5b_2MIrbN_mIh8c9-eHvG-WNitdp9ipbJyUSDaTVDosQYQk6C3uk4Z1EUZe/exec";
+const input=document.getElementById("tpdInput"), result=document.getElementById("result"), form=document.getElementById("searchForm"), btn=document.getElementById("searchBtn"), resetBtn=document.getElementById("resetBtn"), historyEl=document.getElementById("history");
+let jsonpTimer=null, callbackSeq=0;
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function renderHistory(){let h=JSON.parse(localStorage.getItem("tpd_history")||"[]");historyEl.innerHTML=h.length?h.map(x=>`<button class="chip" data-tpd="${esc(x)}">${esc(x)}</button>`).join(""):'<span class="status" style="padding:0">Belum ada riwayat.</span>';historyEl.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{input.value=b.dataset.tpd;lookup();});}
+function saveHistory(tpd){let h=JSON.parse(localStorage.getItem("tpd_history")||"[]");h=[tpd,...h.filter(x=>x!==tpd)].slice(0,10);localStorage.setItem("tpd_history",JSON.stringify(h));renderHistory();}
+function lookup(){
+ const tpd=input.value.trim();
+ if(!tpd){result.innerHTML='<div class="status error">Masukkan TPD_id terlebih dahulu.</div>';return;}
+ btn.disabled=true;btn.textContent="MEMUAT...";result.innerHTML='<div class="status">Mencari data...</div>';
+ const cb="tpdCallback_"+(++callbackSeq);
+ const script=document.createElement("script");
+ let done=false;
+ window[cb]=function(data){
+   done=true;clearTimeout(jsonpTimer);delete window[cb];script.remove();
+   if(!data||!data.ok){result.innerHTML=`<div class="status error">${esc((data&&data.error)||"Data tidak ditemukan.")}</div>`;btn.disabled=false;btn.textContent="CARI";return;}
+   result.innerHTML=`<div class="success-grid"><div class="field"><div class="label">TPD_id</div><div class="value">${esc(data.TPD_id)}</div></div><div class="field"><div class="label">Category1</div><div class="value">${esc(data.Category1)}</div></div><div class="field"><div class="label">LOM remark</div><div class="value">${esc(data.LOM_remark)}</div></div></div>`;
+   saveHistory(data.TPD_id);btn.disabled=false;btn.textContent="CARI";
+ };
+ jsonpTimer=setTimeout(()=>{if(done)return;delete window[cb];script.remove();result.innerHTML='<div class="status error"><b>Tidak dapat memuat data.</b><br>Pastikan Apps Script sudah diperbarui dengan Code.gs dari ZIP ini dan deployment sudah diperbarui.</div>';btn.disabled=false;btn.textContent="CARI";},15000);
+ script.src=APPS_SCRIPT_URL+"?tpd="+encodeURIComponent(tpd)+"&callback="+encodeURIComponent(cb)+"&t="+Date.now();
+ document.body.appendChild(script);
+}
+form.addEventListener("submit",e=>{e.preventDefault();lookup();});
+resetBtn.onclick=()=>{input.value="";result.innerHTML='<div class="status">Masukkan TPD_id lalu tekan CARI.</div>';input.focus();};
+renderHistory();
+</script>
+</body>
+</html>
