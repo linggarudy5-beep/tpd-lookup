@@ -20,191 +20,205 @@ body {
 .container {
   width: min(900px, 94%);
   margin: auto;
-  padding: 30px 0 50px;
+  padding: 24px 0 40px;
 }
 
 .hero {
   background: linear-gradient(135deg, #135daf, #31588f);
   color: white;
-  border-radius: 0 0 30px 30px;
-  padding: 35px 28px;
-  box-shadow: 0 14px 35px rgba(0,0,0,.12);
+  border-radius: 0 0 28px 28px;
+  padding: 30px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.12);
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
 }
 
-.logo {
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 20px;
-  border: 1px solid rgba(255,255,255,.3);
-}
-
-.brand h1 {
+.hero p {
   margin: 0;
-  font-size: 30px;
-}
-
-.brand p {
-  margin: 5px 0 0;
-  opacity: .85;
-}
-
-.search {
-  margin-top: 28px;
-  background: white;
-  padding: 10px;
-  border-radius: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.search input {
-  flex: 1;
-  border: 0;
-  outline: 0;
-  font-size: 18px;
-  padding: 14px;
-  min-width: 0;
-}
-
-.search button {
-  border: 0;
-  background: #135daf;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 0 24px;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
-.search button:hover {
-  background: #0e4c92;
+  opacity: .9;
 }
 
 .card {
   background: white;
-  margin-top: 25px;
-  border: 1px solid #e0e6ef;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 8px 25px rgba(35,58,91,.07);
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
 }
 
-.section-title {
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.search-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  gap: 10px;
 }
 
-.section-title h2 {
-  margin: 0;
-  font-size: 21px;
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #ccd5e2;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
 }
 
-.reset {
-  border: 1px solid #d6deea;
-  background: white;
-  padding: 8px 14px;
-  border-radius: 10px;
+input:focus {
+  border-color: #135daf;
+  box-shadow: 0 0 0 3px rgba(19,93,175,.12);
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  background: #135daf;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.status {
-  text-align: center;
-  color: #68758a;
-  padding: 20px;
+button:hover {
+  opacity: .9;
 }
 
-.error {
-  color: #b9472e;
-  text-align: center;
-  padding: 20px;
+button.secondary {
+  background: #e9eef5;
+  color: #17243b;
 }
 
-.result-grid {
-  display: grid;
-  gap: 14px;
+.result {
+  display: none;
+}
+
+.result.success {
+  display: block;
+}
+
+.result.error {
+  display: block;
+}
+
+.result-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 18px;
 }
 
 .field {
-  background: #f7f9fc;
-  border-radius: 15px;
-  padding: 17px;
+  padding: 15px;
+  background: #f6f8fb;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
 .field-label {
-  font-size: 13px;
-  color: #68758a;
-  margin-bottom: 7px;
+  font-size: 12px;
+  color: #65748b;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .field-value {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   word-break: break-word;
 }
 
-.history {
+.error-box {
+  background: #fff1f1;
+  color: #a32020;
+  padding: 15px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+.history-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.history-title h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.history-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.chip {
-  border: 1px solid #d7dfeb;
-  background: white;
-  padding: 9px 13px;
-  border-radius: 999px;
+.history-item {
+  background: #edf3fb;
+  color: #135daf;
+  border-radius: 10px;
+  padding: 9px 12px;
   cursor: pointer;
-  color: #31588f;
+  font-size: 13px;
 }
 
-.footer {
+.sheet {
+  overflow: hidden;
+}
+
+.sheet iframe {
+  width: 100%;
+  height: 600px;
+  border: 0;
+  border-radius: 12px;
+}
+
+.loading {
+  display: none;
   text-align: center;
-  color: #8a95a5;
+  padding: 15px;
+  color: #135daf;
+  font-weight: bold;
+}
+
+.example {
+  margin-top: 8px;
+  color: #65748b;
   font-size: 13px;
-  margin-top: 25px;
 }
 
 @media (max-width: 600px) {
   .container {
-    width: 100%;
-    padding-top: 0;
+    width: 94%;
+    padding-top: 10px;
   }
 
   .hero {
-    border-radius: 0 0 28px 28px;
-    padding: 25px 18px 28px;
+    padding: 25px 18px;
   }
 
-  .brand h1 {
-    font-size: 27px;
+  .hero h1 {
+    font-size: 24px;
   }
 
-  .search {
+  .search-row {
     flex-direction: column;
   }
 
-  .search button {
-    height: 50px;
+  button {
+    width: 100%;
   }
 
-  .card {
-    margin: 18px 12px 0;
-    padding: 20px;
+  .sheet iframe {
+    height: 500px;
   }
 }
 </style>
@@ -212,370 +226,320 @@ body {
 
 <body>
 
+<div class="hero">
+  <div class="container">
+    <h1>TPD Lookup</h1>
+    <p>Cari data TPD_id dengan cepat</p>
+  </div>
+</div>
+
 <div class="container">
 
-  <section class="hero">
+  <div class="card">
+    <label for="tpdInput">TPD_id</label>
 
-    <div class="brand">
-      <div class="logo">TPD</div>
-
-      <div>
-        <h1>TPD Lookup</h1>
-        <p>Pencarian data TPD secara cepat</p>
-      </div>
-    </div>
-
-    <form class="search" id="searchForm">
+    <div class="search-row">
       <input
         id="tpdInput"
         type="text"
-        placeholder="Masukkan TPD_id..."
+        placeholder="Contoh: 25-T01-XLS-34-0006"
         autocomplete="off"
       >
 
-      <button type="submit">
-        CARI
-      </button>
-    </form>
-
-  </section>
-
-
-  <section class="card">
-
-    <div class="section-title">
-      <h2>Hasil Pencarian</h2>
-
-      <button class="reset" onclick="resetResult()">
-        Reset
-      </button>
+      <button onclick="searchTPD()">CARI</button>
     </div>
 
-    <div id="result">
-      <div class="status">
-        Masukkan TPD_id kemudian klik CARI.
-      </div>
+    <div class="example">
+      Contoh: 25-T01-XLS-34-0006
     </div>
 
-  </section>
+    <div id="loading" class="loading">
+      Sedang mencari data...
+    </div>
+  </div>
 
+  <div id="resultCard" class="card result">
+    <div class="result-title">Hasil Pencarian</div>
 
-  <section class="card">
-
-    <div class="section-title">
-      <h2>Riwayat</h2>
+    <div class="field">
+      <div class="field-label">TPD_id</div>
+      <div id="resultTPD" class="field-value">-</div>
     </div>
 
-    <div id="history" class="history"></div>
+    <div class="field">
+      <div class="field-label">Category1</div>
+      <div id="resultCategory" class="field-value">-</div>
+    </div>
 
-  </section>
+    <div class="field">
+      <div class="field-label">LOM remark</div>
+      <div id="resultLOM" class="field-value">-</div>
+    </div>
+  </div>
 
+  <div id="errorCard" class="card result">
+    <div id="errorMessage" class="error-box"></div>
+  </div>
 
-  <div class="footer">
-    TPD Lookup • Data diambil dari Google Sheets
+  <div class="card">
+    <div class="history-title">
+      <h2>Riwayat Pencarian</h2>
+      <button class="secondary" onclick="clearHistory()">Reset</button>
+    </div>
+
+    <div id="historyList" class="history-list"></div>
+  </div>
+
+  <div class="card sheet">
+    <div class="result-title">Google Sheet</div>
+
+    <iframe
+      src="https://docs.google.com/spreadsheets/d/1Gjw-xdFsTkp4-lw1NIxwRKcnjJ7YX4oYyFWih9njUMU/edit?gid=0#gid=0">
+    </iframe>
   </div>
 
 </div>
 
-
 <script>
-
-/* =====================================================
-   APPS SCRIPT WEB APP
-   ===================================================== */
 
 const APPS_SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbwqV50eW5b_2MIrbN_mIh8c9-eHvG-WNitdp9ipbJyUSDaTVDosQYQk6C3uk4Z1EUZe/exec";
 
+let callbackCounter = 0;
+let timeoutTimer = null;
 
-/* =====================================================
-   ELEMENT
-   ===================================================== */
+function searchTPD() {
 
-const searchForm = document.getElementById("searchForm");
-const tpdInput = document.getElementById("tpdInput");
-const resultBox = document.getElementById("result");
-const historyBox = document.getElementById("history");
-
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
-
-searchForm.addEventListener("submit", function(e) {
-
-  e.preventDefault();
-
-  const tpd = tpdInput.value.trim();
+  const input = document.getElementById("tpdInput");
+  const tpd = input.value.trim();
 
   if (!tpd) {
-    resultBox.innerHTML =
-      '<div class="error">Silakan masukkan TPD_id.</div>';
-
+    showError("Silakan masukkan TPD_id terlebih dahulu.");
     return;
   }
 
-  resultBox.innerHTML =
-    '<div class="status">Mencari data...</div>';
+  showLoading(true);
+  hideResults();
 
-  searchTPD(tpd);
+  callbackCounter++;
 
-});
-
-
-/* =====================================================
-   JSONP SEARCH
-   ===================================================== */
-
-function searchTPD(tpd) {
-
-  const callbackName =
-    "tpdCallback_" + Date.now();
+  const callbackName = "tpdCallback_" + Date.now() + "_" + callbackCounter;
 
   const script = document.createElement("script");
 
   const url =
     APPS_SCRIPT_URL +
-    "?tpd=" +
-    encodeURIComponent(tpd) +
-    "&callback=" +
-    callbackName;
-
-  let finished = false;
+    "?tpd=" + encodeURIComponent(tpd) +
+    "&callback=" + encodeURIComponent(callbackName) +
+    "&_=" + Date.now();
 
   window[callbackName] = function(data) {
 
-    finished = true;
+    clearTimeout(timeoutTimer);
 
-    delete window[callbackName];
+    try {
+      if (data && data.ok) {
 
-    script.remove();
+        showResult(
+          data.TPD_id || tpd,
+          data.Category1 || "-",
+          data.LOM_remark || "-"
+        );
 
-    if (data && data.ok) {
+        saveHistory(data.TPD_id || tpd);
 
-      showResult(data);
+      } else {
 
-      saveHistory(data.TPD_id);
-
-    } else {
-
-      resultBox.innerHTML =
-        '<div class="error">' +
-        escapeHtml(
+        showError(
           data && data.error
             ? data.error
             : "Data tidak ditemukan."
-        ) +
-        '</div>';
+        );
+      }
 
+    } catch (err) {
+
+      showError("Terjadi kesalahan saat membaca hasil.");
+
+    } finally {
+
+      showLoading(false);
+
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+
+      delete window[callbackName];
     }
-
   };
 
   script.onerror = function() {
 
-    if (finished) return;
+    clearTimeout(timeoutTimer);
+
+    showLoading(false);
+
+    showError(
+      "Gagal terhubung ke Apps Script. " +
+      "Pastikan Web App sudah di-deploy dengan akses Anyone."
+    );
+
+    if (script.parentNode) {
+      script.parentNode.removeChild(script);
+    }
 
     delete window[callbackName];
-
-    script.remove();
-
-    resultBox.innerHTML =
-      '<div class="error">' +
-      'Tidak dapat terhubung ke server Apps Script.' +
-      '</div>';
-
   };
 
   document.body.appendChild(script);
 
-  setTimeout(function() {
+  timeoutTimer = setTimeout(function() {
 
-    if (!finished) {
+    showLoading(false);
 
-      finished = true;
+    showError(
+      "Waktu koneksi habis. Pastikan Apps Script sudah " +
+      "di-deploy sebagai Web App dan versi terbaru sudah aktif."
+    );
 
-      delete window[callbackName];
-
-      script.remove();
-
-      resultBox.innerHTML =
-        '<div class="error">' +
-        'Waktu koneksi habis. Pastikan Apps Script sudah di-deploy sebagai Web App.' +
-        '</div>';
-
+    if (script.parentNode) {
+      script.parentNode.removeChild(script);
     }
 
+    delete window[callbackName];
+
   }, 15000);
-
 }
 
 
-/* =====================================================
-   SHOW RESULT
-   ===================================================== */
+function showResult(tpd, category, lom) {
 
-function showResult(data) {
+  const card = document.getElementById("resultCard");
 
-  resultBox.innerHTML = `
+  document.getElementById("resultTPD").textContent = tpd;
+  document.getElementById("resultCategory").textContent = category;
+  document.getElementById("resultLOM").textContent = lom;
 
-    <div class="result-grid">
-
-      <div class="field">
-        <div class="field-label">
-          TPD_id
-        </div>
-
-        <div class="field-value">
-          ${escapeHtml(data.TPD_id || "-")}
-        </div>
-      </div>
-
-
-      <div class="field">
-        <div class="field-label">
-          Category1
-        </div>
-
-        <div class="field-value">
-          ${escapeHtml(data.Category1 || "-")}
-        </div>
-      </div>
-
-
-      <div class="field">
-        <div class="field-label">
-          LOM remark
-        </div>
-
-        <div class="field-value">
-          ${escapeHtml(data.LOM_remark || "-")}
-        </div>
-      </div>
-
-    </div>
-
-  `;
-
+  card.className = "card result success";
 }
 
 
-/* =====================================================
-   RESET
-   ===================================================== */
+function showError(message) {
 
-function resetResult() {
+  const card = document.getElementById("errorCard");
 
-  tpdInput.value = "";
+  document.getElementById("errorMessage").textContent = message;
 
-  resultBox.innerHTML =
-    '<div class="status">Masukkan TPD_id kemudian klik CARI.</div>';
-
-  tpdInput.focus();
-
+  card.className = "card result error";
 }
 
 
-/* =====================================================
-   HISTORY
-   ===================================================== */
+function hideResults() {
+
+  document.getElementById("resultCard").className =
+    "card result";
+
+  document.getElementById("errorCard").className =
+    "card result";
+}
+
+
+function showLoading(show) {
+
+  document.getElementById("loading").style.display =
+    show ? "block" : "none";
+}
+
 
 function saveHistory(tpd) {
 
-  let history =
-    JSON.parse(
-      localStorage.getItem("tpdHistory") || "[]"
-    );
+  let history = getHistory();
 
-  history =
-    history.filter(x => x !== tpd);
+  history = history.filter(function(item) {
+    return item.toLowerCase() !== tpd.toLowerCase();
+  });
 
   history.unshift(tpd);
 
   history = history.slice(0, 10);
 
   localStorage.setItem(
-    "tpdHistory",
+    "tpd_lookup_history",
     JSON.stringify(history)
   );
 
   renderHistory();
+}
 
+
+function getHistory() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem("tpd_lookup_history")
+    ) || [];
+
+  } catch (e) {
+
+    return [];
+  }
 }
 
 
 function renderHistory() {
 
-  let history =
-    JSON.parse(
-      localStorage.getItem("tpdHistory") || "[]"
-    );
+  const list = document.getElementById("historyList");
+  const history = getHistory();
+
+  list.innerHTML = "";
 
   if (!history.length) {
 
-    historyBox.innerHTML =
-      '<span style="color:#8a95a5">Belum ada riwayat.</span>';
+    list.innerHTML =
+      '<span style="color:#65748b;font-size:13px;">Belum ada riwayat.</span>';
 
     return;
   }
 
-  historyBox.innerHTML =
-    history.map(function(tpd) {
+  history.forEach(function(tpd) {
 
-      return `
-        <button
-          class="chip"
-          onclick="useHistory('${escapeAttribute(tpd)}')">
-          ${escapeHtml(tpd)}
-        </button>
-      `;
+    const item = document.createElement("div");
 
-    }).join("");
+    item.className = "history-item";
+    item.textContent = tpd;
 
-}
+    item.onclick = function() {
 
+      document.getElementById("tpdInput").value = tpd;
 
-function useHistory(tpd) {
+      searchTPD();
+    };
 
-  tpdInput.value = tpd;
-
-  searchTPD(tpd);
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+    list.appendChild(item);
   });
-
 }
 
 
-/* =====================================================
-   SECURITY HELPERS
-   ===================================================== */
+function clearHistory() {
 
-function escapeHtml(value) {
+  localStorage.removeItem("tpd_lookup_history");
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
+  renderHistory();
 }
 
 
-function escapeAttribute(value) {
+document.getElementById("tpdInput").addEventListener(
+  "keydown",
+  function(event) {
 
-  return String(value)
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'");
-}
+    if (event.key === "Enter") {
+      searchTPD();
+    }
 
+  }
+);
 
-/* =====================================================
-   INITIAL HISTORY
-   ===================================================== */
 
 renderHistory();
 
